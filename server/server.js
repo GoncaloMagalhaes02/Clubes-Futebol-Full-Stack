@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
   res.json({ message: "Test" });
 });
 
+require('./routes/clubes.routes.js')(app);
+
 app.listen(PORT, () => {
   console.log(`Server running in port: ${PORT}`);
 });
