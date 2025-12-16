@@ -34,7 +34,7 @@ Jogador.listAll = (result) => {
 
 Jogador.findById = (id, result) => {
   const query = `
-    SELECT jogadores.*, Clubes.nomeClube 
+    SELECT jogadores.*, Clubes.nomeClube, Clubes.img
     FROM jogadores 
     INNER JOIN Clubes ON jogadores.id_clube = Clubes.id_clube 
     WHERE jogadores.id_jogador = ?
