@@ -9,7 +9,7 @@ const Clube = function(clube){
 }
 
 Clube.insert = (newClube, result) => {
-    sql.query(`INSERT INTO movies SET ?`, newClube, (err, res) => {
+    sql.query(`INSERT INTO clubes SET ?`, newClube, (err, res) => {
         if(err){
             console.log('error', err);
             result(err, null);

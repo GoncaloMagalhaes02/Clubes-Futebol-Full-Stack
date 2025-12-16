@@ -13,7 +13,7 @@ exports.insert = (req, res) => {
             cidade: req.body.cidade,
             estadio: req.body.estadio,
             treinador: req.body.treinador,
-            img: req.body.img
+            img: req.file 
         });
     
 
@@ -54,3 +54,5 @@ exports.getById = (req, res) => {
         }else res.send(data);
     })
 }
+
+
