@@ -7,6 +7,23 @@ exports.insert = (req, res) => {
     });
   }
 
+  const imageFileName = req.file ? req.file.filename : null;
+
+  const clube = new Clube({
+    nomeClube: req.body.nomeClube,
+    anoFundacao: req.body.anoFundacao,
+    cidade: req.body.cidade,
+    estadio: req.body.estadio,
+    treinador: req.body.treinador,
+    img: imageFileName,
+  });
+
+  if (!req.body || Object.keys(req.body).length === 0) {
+    res.status(400).send({
+      message: "O conteúdo do clube deve estar definido.",
+    });
+  }
+
   const { file, ...rest } = req.body;
 
   const clube = new Clube({
