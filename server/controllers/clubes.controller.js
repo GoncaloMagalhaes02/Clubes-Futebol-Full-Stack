@@ -9,7 +9,7 @@ exports.insert = (req, res) => {
 
   const imageFileName = req.file ? req.file.filename : null;
 
-  const clube = new Clube({
+  const Clube = new Clube({
     nomeClube: req.body.nomeClube,
     anoFundacao: req.body.anoFundacao,
     cidade: req.body.cidade,
