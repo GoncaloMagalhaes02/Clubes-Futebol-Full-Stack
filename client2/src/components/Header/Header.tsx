@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   AppBar,
   Container,
@@ -5,39 +6,51 @@ import {
   Typography,
   Box,
   Button,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
-import logo from "../../assets/ligalogo.png";
+import logoImg from "../../assets/ligalogo.png";
+
+const navLinks = [
+  { title: "Jogadores", path: "/jogadores" },
+  { title: "Clubes", path: "/clubes" },
+  { title: "Sobre", path: "/sobre" },
+];
 
 const navButtonStyle = {
   color: "inherit",
   fontWeight: 500,
-  borderBottom: "2px solid transparent", // Começa invisível
+  borderBottom: "2px solid transparent",
   borderRadius: 0,
-  transition: "all 0.3s ease-in-out", // Animação suave
-  mx: 1, // Margin horizontal (espaço entre botões)
+  transition: "all 0.3s ease-in-out",
+  mx: 1,
   "&:hover": {
-    borderBottom: "2px solid #FFD700", // Cor dourada (exemplo) no hover
-    backgroundColor: "rgba(255,255,255,0.05)", // Fundo muito subtil
-    color: "#FFD700", // O texto também fica dourado
+    borderBottom: "2px solid primary.light",
+    backgroundColor: "rgba(255,255,255,0.05)",
+    color: "primary.light",
   },
 };
 
 function Header() {
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ height: 80 }}>
-          <Box
-            component="img"
-            sx={{
-              height: 60,
-              mr: 3,
-              cursor: "pointer",
-            }}
-            alt="Logótipo Primeira Liga"
-            src={logo}
-          />
+          <Box component="img" src={logoImg} sx={{ height: 60, mr: 4 }} />
+
           <Typography
             variant="h6"
             component={Link}
@@ -47,62 +60,66 @@ function Header() {
               textDecoration: "none",
               color: "inherit",
               fontWeight: "bold",
+              fontSize: { xs: "1rem", md: "1.25rem" },
             }}
           >
             Primeira Liga
           </Typography>
 
-          <Box>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/jogadores"
-              sx={{
-                mr: 4,
-                transition: "0.3s",
-                "&:hover": {
-                  backgroundColor: "primary.light",
-                  transform: "scale(1.05)",
-                  color: "primary.main",
-                },
-              }}
-            >
-              Jogadores
-            </Button>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            {navLinks.map((item) => (
+              <Button
+                key={item.title}
+                component={Link}
+                to={item.path}
+                sx={navButtonStyle}
+              >
+                {item.title}
+              </Button>
+            ))}
+          </Box>
 
-            <Button
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="menu de navegação"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
               color="inherit"
-              component={Link}
-              to="/clubes"
-              sx={{
-                mr: 4,
-                transition: "0.3s",
-                "&:hover": {
-                  backgroundColor: "primary.light",
-                  transform: "scale(1.05)",
-                  color: "primary.main",
-                },
-              }}
             >
-              Clubes
-            </Button>
+              <MenuIcon />
+            </IconButton>
 
-            <Button
-              color="inherit"
-              component={Link}
-              to="/sobre"
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
               sx={{
-                mr: 4,
-                transition: "0.3s",
-                "&:hover": {
-                  backgroundColor: "primary.light",
-                  transform: "scale(1.05)",
-                  color: "primary.main",
-                },
+                display: { xs: "block", md: "none" },
               }}
             >
-              Sobre
-            </Button>
+              {navLinks.map((item) => (
+                <MenuItem
+                  key={item.title}
+                  onClick={handleCloseNavMenu}
+                  component={Link}
+                  to={item.path}
+                >
+                  <Typography textAlign="center">{item.title}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>
