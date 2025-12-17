@@ -2,12 +2,38 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
+
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+
+// Criação de um tema simples (pode customizar cores aqui depois)
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#001E50",
+      light: "#F0F4FD",
+      dark: "#001941",
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    button: {
+      textTransform: "none",
+      fontWeight: "bold",
+    },
+  },
+});
 
 import RootLayout from "./RootLayout.tsx";
 import HomePage from "./pages/HomePage/HomePage.tsx";
@@ -22,6 +48,9 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>
 );
