@@ -22,6 +22,11 @@ module.exports = app => {
 
     router.post("/insertClube", upload.single('img'), clubes.insert);
 
+    //O patch espera apenas as alterações
+    router.patch("/updateClube/:id_clube", upload.single('img'), clubes.update);
+
+    router.delete("/delete/:id_clube", clubes.delete);
+
     app.use('/clubes', router);
 }
 
