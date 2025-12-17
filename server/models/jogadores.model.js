@@ -52,7 +52,7 @@ Jogador.findById = (id, result) => {
 };
 
 Jogador.delete = (id, result) => {
-  sql.query(`DELETE FROM jogadores WHERE id_jogador = ${id}`, (err, res) => {
+  sql.query(`DELETE FROM jogadores WHERE id_jogador = ? `, [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result({ message: "Não foi possivel apagar o Jogador" }, null);

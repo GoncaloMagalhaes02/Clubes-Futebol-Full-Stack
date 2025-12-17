@@ -8,12 +8,7 @@ exports.insert = (req, res) => {
   }
 
   const jogador = new Jogador({
-    nome: req.body.nome,
-    nacionalidade: req.body.nacionalidade,
-    dataNascimento: req.body.dataNascimento,
-    posicao: req.body.posicao,
-    numCamisola: req.body.numCamisola,
-    id_clube: req.body.id_clube,
+    ...req.body,
   });
 
   Jogador.insert(jogador, (err, data) => {
@@ -29,7 +24,7 @@ exports.insert = (req, res) => {
   });
 };
 
-exports.listAll = (req, res) => {
+exports.listAll = (_, res) => {
   Jogador.listAll((err, data) => {
     if (err) {
       res.status(500).json({ message: "Erro", err });
