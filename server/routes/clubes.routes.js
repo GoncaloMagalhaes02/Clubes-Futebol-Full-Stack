@@ -18,7 +18,7 @@ module.exports = app => {
 
 /**
    * @swagger
-   * /clubes/getAllClubes:
+   * /clubes:
    *   get:
    *     summary: Retorna todos os clubes
    *     tags: [Clubes]
@@ -26,12 +26,12 @@ module.exports = app => {
    *       200:
    *         description: Lista dos Clubes
    */
-    router.get("/getAllClubes", clubes.getAll);
+    router.get("/", clubes.getAll);
 
 
     /**
    * @swagger
-   * /clubes/getById/{id_clube}:
+   * /clubes/{id_clube}:
    *   get:
    *     summary: Retorna o clube por Id
    *     tags: [Clubes]
@@ -44,11 +44,11 @@ module.exports = app => {
    *       200:
    *         description: Destalhes do clube
    */
-    router.get("/getById/:id_clube", clubes.getById);
+    router.get("/:id_clube", clubes.getById);
 
    /**
    * @swagger
-   * /clubes/insertClube:
+   * /clubes/:
    *   post:
    *     summary: Insere um novo Clube
    *     tags: [Clubes]
@@ -63,28 +63,28 @@ module.exports = app => {
    *               nomeClube:
    *                 type: string
    *                 description: nome do Clube
-   *                 example: "SL Benfica"
+   *                 example: ""
    *               anoFundacao:
    *                 type: integer
    *                 description: Ano de Fundação do Clube
-   *                 example: 1904
+   *                 example: 
    *               cidade:
    *                 type: string
    *                 description: Cidade do Clube
-   *                 example: "Lisboa"
+   *                 example: ""
    *               estadio:
    *                 type: string
    *                 description: Nome do estádio do Clube
-   *                 example: "Estádio da Luz"
+   *                 example: ""
    *               treinador:
    *                 type: string
    *                 description: Nome do treinador do Clube
-   *                 example: "José Mourinho"
+   *                 example: ""
    *               img:
    *                 type: string
    *                 format: binary
    *                 description: Ficheiro da imagem
-   *                 example: "logoClube.png"
+   *                 example: ""
    * 
    *     responses:
    *       '200':
@@ -122,11 +122,11 @@ module.exports = app => {
    *                   type: string
    *                   example: "logoClube.png"
    */
-    router.post("/insertClube", upload.single('img'), clubes.insert);
+    router.post("/", upload.single('img'), clubes.insert);
     
    /**
    * @swagger
-   * /clubes/updateClube/{id_clube}:
+   * /clubes/{id_clube}:
    *   patch:
    *     summary: Atualizar umClube
    *     tags: [Clubes]
@@ -148,24 +148,28 @@ module.exports = app => {
    *               nomeClube:
    *                 type: string
    *                 description: nome do Clube
-   *                 example: "SL Benfica"
+   *                 example: ""
    *               anoFundacao:
    *                 type: integer
    *                 description: Ano de Fundação do Clube
-   *                 example: 1904
+   *                 example: ""
    *               cidade:
    *                 type: string
    *                 description: Cidade do Clube
-   *                 example: "Lisboa"
+   *                 example: ""
    *               estadio:
    *                 type: string
    *                 description: Nome do estádio do Clube
-   *                 example: "Estádio da Luz"
+   *                 example: ""
+   *               treinador:
+   *                 type: string
+   *                 description: Nome do treinador do treinador do clube
+   *                 example: ""
    *               img:
    *                 type: string
    *                 format: binary
    *                 description: nome do ficheiro
-   *                 example: "logoBenfica.png"
+   *                 example: ""
    *     responses:
    *       '200':
    *         description: Clube Atualizado com sucesso
@@ -176,7 +180,7 @@ module.exports = app => {
    *               properties:
    *                 id_clube:
    *                   type: integer
-   *                   description: ID do Clube criado
+   *                   description: ID do Clube
    *                   example: 56
    *                 nomeClube:
    *                   type: string
@@ -199,12 +203,12 @@ module.exports = app => {
    *                   description: nome do ficheiro da imagem
    *                   example: "logoBenfica.png"
    */
-    router.patch("/updateClube/:id_clube", upload.single('img'), clubes.updateClube);
+    router.patch("/:id_clube", upload.single('img'), clubes.updateClube);
 
 
    /**
    * @swagger
-   * /clubes/delete/{id_clube}:
+   * /clubes/{id_clube}:
    *   delete:
    *     summary: Apaga o Clube
    *     tags: [Clubes]
@@ -217,7 +221,7 @@ module.exports = app => {
    *       200:
    *         description: Clube apagado
    */
-    router.delete("/delete/:id_clube", clubes.delete);  
+    router.delete("/:id_clube", clubes.delete);  
 
     
     app.use('/clubes', router);

@@ -1,15 +1,17 @@
 const Clube = require("../models/clubes.model.js");
 
+
 exports.insert = (req, res) => {
+  // 1. Validação de segurança
   if (!req.body || Object.keys(req.body).length === 0) {
-    res.status(400).send({
+    return res.status(400).send({
       message: "O conteúdo do clube deve estar definido.",
     });
   }
 
   const imageFileName = req.file ? req.file.filename : null;
 
-  const Clube = new Clube({
+  const novoClube = new Clube({
     nomeClube: req.body.nomeClube,
     anoFundacao: req.body.anoFundacao,
     cidade: req.body.cidade,
@@ -18,23 +20,10 @@ exports.insert = (req, res) => {
     img: imageFileName,
   });
 
-  if (!req.body || Object.keys(req.body).length === 0) {
-    res.status(400).send({
-      message: "O conteúdo do clube deve estar definido.",
-    });
-  }
-
-  const { file, ...rest } = req.body;
-
-  const clube = new Clube({
-    ...rest,
-    img: req.file,
-  });
-
-  Clube.insert(clube, (err, data) => {
+  Clube.insert(novoClube, (err, data) => {
     if (err) {
       res.status(500).send({
-        message: err.message || "Ocorrei um erro ao inserir o clube...",
+        message: err.message || "Ocorreu um erro ao inserir o clube...",
       });
     } else {
       res.send(data);
