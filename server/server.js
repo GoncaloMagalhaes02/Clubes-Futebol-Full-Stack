@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 
@@ -24,3 +26,27 @@ require("./routes/clubes.routes.js")(app);
 app.listen(PORT, () => {
   console.log(`Server running in port: ${PORT}`);
 });
+
+const swaggerDefinition =  {
+  openapi: '3.0.1',
+  info: {
+    title: 'API Clubes Futebol | Documentação | 2025',
+    version: '1.0.0',
+    description: 'Documentação da REST API do trabalho Prático de PW',
+    contact: {
+      name: 'IPVC . ESTG . Guilherme Magalhães e Gonçalo Magalhães',
+      email: ''
+    }
+  },
+  basePath: '/',
+}
+
+
+const swaggerOptions = {
+  swaggerDefinition,
+  apis : ['./routes/*.js']
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
