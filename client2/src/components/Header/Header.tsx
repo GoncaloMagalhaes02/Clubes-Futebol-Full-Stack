@@ -11,6 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+
 import { Link } from "react-router-dom";
 import logoImg from "../../assets/ligalogo.png";
 
@@ -29,8 +30,8 @@ const navButtonStyle = {
   mx: 1,
   "&:hover": {
     borderBottom: "2px solid primary.light",
-    backgroundColor: "rgba(255,255,255,0.05)",
-    color: "primary.light",
+    backgroundColor: "primary.light",
+    color: "primary.main",
   },
 };
 
@@ -60,7 +61,7 @@ function Header() {
               textDecoration: "none",
               color: "inherit",
               fontWeight: "bold",
-              fontSize: { xs: "1rem", md: "1.25rem" },
+              fontSize: "1.25rem",
             }}
           >
             Primeira Liga
