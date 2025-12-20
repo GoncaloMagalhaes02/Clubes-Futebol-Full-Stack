@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Button, Card, Container, Grid, Typography } from "@mui/material";
+import noticias from "../../data/data.json";
 
 import {
   Box,
@@ -13,11 +14,14 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
+import img from "../../assets/imgsNoticias/noticia1.jpg";
+import img2 from "../../assets/imgsNoticias/noticia2.png";
+import img3 from "../../assets/imgsNoticias/noticia3.jpg";
+import img4 from "../../assets/imgsNoticias/noticia4.png";
+import { data } from "react-router-dom";
+
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
   ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
@@ -60,43 +64,147 @@ function HomePage() {
           Ultimas Noticías
         </Typography>
 
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
           <Grid container spacing={2}>
-            <Grid size={8}>
+            <Grid size={{ xs: 6, md: 8 }}>
               <Item>
                 <Card>
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      height="140"
-                      image=""
+                      height="300"
+                      image={img}
                       alt="green iguana"
+                      sx={{ objectFit: "cover" }}
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        Lizard
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          textAlign: "left",
+                          color: "primary.dark",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {noticias.data[0].titulo}
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ color: "text.secondary" }}
+                        sx={{ color: "text.secondary", textAlign: "left" }}
                       >
-                        Lizards are a widespread group of squamate reptiles,
-                        with over 6,000 species, ranging across all continents
-                        except Antarctica
+                        {noticias.data[0].descricao}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
                 </Card>
               </Item>
             </Grid>
-            <Grid size={4}>
-              <Item>size=4</Item>
+            <Grid size={{ xs: 6, md: 4 }}>
+              <Item>
+                <Card>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      image={img2}
+                      alt=""
+                      sx={{ objectFit: "cover" }}
+                    />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          textAlign: "left",
+                          color: "primary.dark",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {noticias.data[1].titulo}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {noticias.data[1].descricao}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Item>
             </Grid>
-            <Grid size={4}>
-              <Item>size=4</Item>
+            <Grid size={{ xs: 6, md: 4 }}>
+              <Item>
+                <Card>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      image={img2}
+                      alt=""
+                      sx={{ objectFit: "cover" }}
+                    />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          textAlign: "left",
+                          color: "primary.dark",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {noticias.data[1].titulo}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {noticias.data[1].descricao}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Item>
             </Grid>
-            <Grid size={8}>
-              <Item>size=8</Item>
+            <Grid size={{ xs: 6, md: 8 }}>
+              <Item>
+                <Card>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      image={img}
+                      alt="green iguana"
+                      sx={{ objectFit: "cover" }}
+                    />
+                    <CardContent>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          textAlign: "left",
+                          color: "primary.dark",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {noticias.data[0].titulo}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary", textAlign: "left" }}
+                      >
+                        {noticias.data[0].descricao}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Item>
             </Grid>
           </Grid>
         </Box>
