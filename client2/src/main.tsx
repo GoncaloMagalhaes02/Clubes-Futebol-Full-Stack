@@ -39,6 +39,7 @@ import RootLayout from "./RootLayout.tsx";
 import HomePage from "./pages/HomePage/HomePage.tsx";
 import ClubsPage from "./pages/ClubsPage/ClubsPage.tsx";
 import CreateClubPage from "./pages/ClubsPage/CreateClubPage.tsx";
+import EditClubPage from "./pages/ClubsPage/EditClubPage.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="/clubs" element={<ClubsPage />} />
       <Route path="/create-club" element={<CreateClubPage />} />
+      <Route path="/edit-clube/:id_clube" element={<EditClubPage />} />
     </Route>
   )
 );

@@ -10,12 +10,17 @@ import {
   Container, 
   Box,
   CircularProgress,
-  Stack // Importado para organizar o cabeçalho
+  Stack 
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add'; // Importe o ícone (npm install @mui/icons-material)
+import AddIcon from '@mui/icons-material/Add';
+// 1. IMPORTAR o useNavigate
+import { useNavigate } from "react-router-dom"; 
 import ClubeService, { type Clube } from "../../service/clube.service"; 
 
 const ClubsPage: React.FC = () => {
+  // 2. INICIALIZAR o navigate
+  const navigate = useNavigate(); 
+  
   const [clubes, setClubes] = useState<Clube[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,12 +59,11 @@ const ClubsPage: React.FC = () => {
     <>
       <Container sx={{ py: 8 }} maxWidth="lg">
         
-        {/* Cabeçalho com Título e Botão Criar */}
         <Stack 
           direction="row" 
           justifyContent="space-between" 
           alignItems="center" 
-          sx={{ mb: 6 }} // Margem generosa entre o título e a grid
+          sx={{ mb: 6 }} 
         >
           <Typography variant="h3" component="h1" fontWeight="bold">
             Clubes de Futebol
@@ -70,7 +74,8 @@ const ClubsPage: React.FC = () => {
             color="primary" 
             startIcon={<AddIcon />}
             size="large"
-            onClick={() => window.location.href = '/create-club'}
+            // Sugestão: Usa o navigate aqui também em vez de window.location
+            onClick={() => navigate('/create-club')} 
           >
             Novo Clube
           </Button>
@@ -117,7 +122,10 @@ const ClubsPage: React.FC = () => {
                     </Typography>
                   </CardContent>
                   <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
-                    <Button size="small" variant="outlined">Editar</Button>
+                    {/* Agora o navigate já funciona aqui */}
+                    <Button variant="outlined" onClick={() => navigate(`/edit-clube/${clube.id_clube}`)}>
+                        Editar
+                    </Button>
                     <Button 
                       size="small" 
                       variant="contained" 

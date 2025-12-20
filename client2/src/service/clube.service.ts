@@ -22,6 +22,8 @@ const ClubeService = {
   update: (id: number, data: any) => api.patch(`/${id}`, data),
   
   delete: (id: number) => api.delete(`/${id}`)
+
+  
 };
 
 export default ClubeService;
