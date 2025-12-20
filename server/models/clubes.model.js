@@ -5,6 +5,7 @@ const Clube = function(clube){
     this.anoFundacao = clube.anoFundacao;
     this.cidade = clube.cidade;
     this.estadio = clube.estadio;
+    this.treinador = clube.treinador;
     this.img = clube.img;
 }
 
