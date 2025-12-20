@@ -1,3 +1,32 @@
 {
-  "data": []
+  "data": [
+    {
+      "id": 1,
+      "titulo": "Prestianni festejou a vitória do Benfica mas Di María reparou noutra coisa",
+      "descricao": "Gianluca Prestianni voltou a ser titular no Benfica, ontem, com o Farense e celebrou o triunfo encarnado que qualificou os encarnados para os quartos de final da Taça de Portugal.",
+      "subtitulo": "Nacional",
+      "img": "noticia1.jpeg"
+    },
+    {
+      "id": 2,
+      "titulo": "Banjaqui partilha orgulho pela estreia no Benfica e até Quenda reagiu",
+      "descricao": "Daniel Banjaqui, 17 anos, celebrou a estreia na equipa profissional do Benfica. O lateral-direito, campeão do mundo sub-17, viveu momento inesquecível na noite de ontem em Faro, quando entrou aos 88 minutos para o lugar de Gianluca Prestianni. Hoje, nas redes sociais, partilhou o estado de espírito.",
+      "subtitulo": "Nacional",
+      "img": "noticia2.png"
+    },
+    {
+      "id": 3,
+      "titulo": "É do Sporting quem mais valorizou na Liga, mas há um miúdo do Benfica a crescer",
+      "descricao": "O Transfermarkt atualiza esta quinta-feira, às 12h00, os valores de mercado de todos os jogadores da Liga, naquela que será a primeira revisão desde o final de setembro, e o update traz várias valorizações significativas.",
+      "subtitulo": "Nacional",
+      "img": "noticia3.jpeg"
+    },
+    {
+      "id": 4,
+      "titulo": "Carlos Vicens: «Pode haver fadiga, mas a mentalidade certa pode ajudar o corpo»",
+      "descricao": "Treinador dos guerreiros do Minho desvaloriza momento menos bom do Estoril, deixando elogios ao rival; técnico espanhol mostra-se satisfeito com a evolução da sua equipa e insiste que a densidade competitiva não pode servir de desculpa",
+      "subtitulo": "Nacional",
+      "img": "noticia4.png"
+    }
+  ]
 }
