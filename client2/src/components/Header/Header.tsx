@@ -50,8 +50,9 @@ function Header() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ height: 80 }}>
-          <Box component="img" src={logoImg} sx={{ height: 60, mr: 4 }} />
-
+          <Button component={Link} to="/">
+            <Box component="img" src={logoImg} sx={{ height: 60, mr: 4 }} />
+          </Button>
           <Typography
             variant="h6"
             component={Link}

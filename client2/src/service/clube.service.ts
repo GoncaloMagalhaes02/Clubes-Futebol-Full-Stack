@@ -11,18 +11,18 @@ export interface Clube {
 }
 
 const ClubeService = {
-  getAll: () => api.get<Clube[]>("/"),
+  getAll: () => api.get<Clube[]>("/clubes"),
 
-  getById: (id: number) => api.get<Clube>(`/${id}`),
+  getById: (id: number) => api.get<Clube>(`/clubes/${id}`),
 
   insert: (formData: FormData) =>
     api.post("/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }),
 
-  update: (id: number, data: any) => api.patch(`/${id}`, data),
+  update: (id: number, data: any) => api.patch(`/clubes/${id}`, data),
 
-  delete: (id: number) => api.delete(`/${id}`),
+  delete: (id: number) => api.delete(`/clubes/${id}`),
 };
 
 export default ClubeService;
