@@ -1,130 +1,111 @@
-const sql = require("./db.model.js");
+const Clube = require("../models/clubes.model.js");
 
-const Clube = function(clube){
-    this.nomeClube = clube.nomeClube;
-    this.anoFundacao = clube.anoFundacao;
-    this.cidade = clube.cidade;
-    this.estadio = clube.estadio;
-    this.treinador = clube.treinador;
-    this.img = clube.img;
-}
+exports.insert = (req, res) => {
+  // 1. Validação de segurança
+  if (!req.body || Object.keys(req.body).length === 0) {
+    return res.status(400).send({
+      message: "O conteúdo do clube deve estar definido.",
+    });
+  }
 
-Clube.insert = (newClube, result) => {
-    sql.query(`INSERT INTO clubes SET ?`, newClube, (err, res) => {
-        if(err){
-            console.log('error', err);
-            result(err, null);
-            return;
-        }
-        console.log("Clube inserido: ", {id: res.id_clube, ... newClube});
-        result(null, {id: res.id_clube, ... newClube});
-    })
-}
+  const imageFileName = req.file ? req.file.filename : null;
 
-Clube.getAll = (title, result) =>{
-    let query;
-    query = 'SELECT * FROM clubes';
+  const novoClube = new Clube({
+    nomeClube: req.body.nomeClube,
+    anoFundacao: req.body.anoFundacao,
+    cidade: req.body.cidade,
+    estadio: req.body.estadio,
+    treinador: req.body.treinador,
+    img: imageFileName,
+  });
 
-    if(title){
-        query += ` WHERE title LIKE '%${title}%'`;
+  Clube.insert(novoClube, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Ocorreu um erro ao inserir o clube...",
+      });
+    } else {
+      res.send(data);
     }
-
-    sql.query(query, (err, res) => {
-        if(err){
-            console.log('error: ', err);
-            result(null, err);
-            return;
-        }
-
-      console.log("Clubes: ", res);
-      result(null, res);  
-    })
-
-
+  });
 };
 
-Clube.getById = (id_clube, result) => {
-    sql.query(`SELECT * FROM clubes WHERE id_clube = ${id_clube}`, (err, res) => {
-        if(err){
-            console.log('error: ', err);
-            console.log(`${id_clube}`)
-            result(err, null);
-            return
-        }
+exports.getAll = (req, res) => {
+  const title = req.query.title;
 
-        if(res.length){
-            console.log('Clube encontrado: ', res[0]);
-            result(null, res[0]);
-            return
-        }
-
-        result({clube: "not_found"}, null);
-    })
-}
-
-Clube.updateClube = (id_clube, partialClubeData, result) => {
-
-    const fieldsToUpdate = {};
-    
-    // Lista de campos válidos na tabela clubes
-    const validFields = ['nomeClube', 'anoFundacao', 'cidade', 'estadio', 'treinador', 'img']; 
-
-    for (const key of validFields) {
-        // Se o campo existir no corpo do pedido, adicione-o ao objeto de atualização
-        if (partialClubeData[key] !== undefined) {
-            fieldsToUpdate[key] = partialClubeData[key];
-        }
-    }
-
-    // 2. Verificar se há realmente algo para atualizar
-    if (Object.keys(fieldsToUpdate).length === 0) {
-        console.log("Nenhum campo fornecido para atualização.");
-        result({ clube: "no_changes"}, null); 
-        return;
-    }
-
-    // 3. Executar a query dinâmica
-    // O '?' na cláusula SET será substituído pelo objeto fieldsToUpdate de forma dinâmica e segura.
-    sql.query('UPDATE clubes SET ? WHERE id_clube = ?',
-        [fieldsToUpdate, id_clube],
-        (err, res) => {
-            if(err) {
-                console.log('error: ', err);
-                result(err, null);
-                return;
-            }
-
-            if(res.affectedRows == 0){
-                // Se o ID não existir
-                result({ clube: "not_found"}, null);
-                return;
-            }
-
-            // Sucesso: Retornamos os dados atualizados (o ID e os campos que foram alterados)
-            console.log('Clube atualizado: ', {id_clube: id_clube, ...fieldsToUpdate});
-            result(null, {id_clube: id_clube, ...fieldsToUpdate});
-        }
-    );
+  Clube.getAll(title, (err, data) => {
+    if (err)
+      res.status(500).send({
+        message: err.message || "Ocorreu um erro na obtenção dos clubes",
+      });
+    else res.send(data);
+  });
 };
 
-Clube.delete = (id_clube, result) => {
-    sql.query('DELETE FROM clubes WHERE id_clube = ?', id_clube, (err, res) => {
-        if(err){
-            console.log('error: ', err);
-            result(null, err);
-            return
-        }
+exports.getById = (req, res) => {
+  Clube.getById(req.params.id_clube, (err, data) => {
+    if (err) {
+      if (err.clube === "not_found") {
+        res.status(404).send({
+          message: `Nao foi encontrado nenhum clube com o id ${req.params.id_clube}.`,
+        });
+      }
+    } else res.send(data);
+  });
+};
 
-        if(res.affectedRows == 0){
-            result({ clube: "not_found"}, null);
-            return;
-        }
-        console.log(`Clube com o id ${id_clube} foi eliminado`);
-        result(null, res);
-    })
-}
+exports.updateClube = (req, res) => {
+  if (!req.body || Object.keys(req.body).length === 0) {
+    res.status(400).send({
+      message: "O conteúdo do clube não pode estar vazio!",
+    });
+    return;
+  }
 
+  if (req.file) {
+    req.body.img = req.file.filename;
+  }
 
+  Clube.updateClube(req.params.id_clube, req.body, (err, data) => {
+    if (err) {
+      if (err.clube === "not_found") {
+        res.status(404).send({
+          message: `Não foi encontrado nenhum clube com o id ${req.params.id_clube}.`,
+        });
+      } else if (err.clube === "no_changes") {
+        res.status(400).send({
+          message: "Nenhum dado válido foi enviado para atualização.",
+        });
+      } else {
+        res.status(500).send({
+          message: "Erro ao atualizar o clube com o id " + req.params.id_clube,
+        });
+      }
+    } else {
+      // Sucesso! Retorna os dados atualizados
+      res.send(data);
+    }
+  });
+};
 
+exports.delete = (req, res) => {
+  const id = req.params.id_clube;
 
-module.exports = Clube;
+  Clube.delete(id, (err, data) => {
+    if (err) {
+      if (err.clube === "not_found") {
+        res.status(404).send({
+          message: `Não foi encontrado nenhum clube com o id ${id}.`,
+        });
+      } else {
+        res.status(500).send({
+          message: `Erro ao eliminar o clube com o id ${id}.`,
+        });
+      }
+    } else {
+      res.send({
+        message: `O clube com o id ${id} foi eliminado com sucesso!`,
+      });
+    }
+  });
+};

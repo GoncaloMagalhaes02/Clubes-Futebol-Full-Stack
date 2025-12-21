@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { 
-  Grid, 
-  Card, 
-  CardMedia, 
-  CardContent, 
-  Typography, 
-  CardActions, 
-  Button, 
-  Container, 
+import {
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+  Container,
   Box,
   CircularProgress,
-  Stack 
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-// 1. IMPORTAR o useNavigate
-import { useNavigate } from "react-router-dom"; 
-import ClubeService, { type Clube } from "../../service/clube.service"; 
+  Stack,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+
+import { useNavigate } from "react-router-dom";
+import ClubeService, { type Clube } from "../../service/clube.service";
 
 const ClubsPage: React.FC = () => {
-  // 2. INICIALIZAR o navigate
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
+
   const [clubes, setClubes] = useState<Clube[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +47,7 @@ const ClubsPage: React.FC = () => {
     if (window.confirm("Tem a certeza que deseja eliminar este clube?")) {
       try {
         await ClubeService.delete(id);
-        setClubes(clubes.filter(c => c.id_clube !== id));
+        setClubes(clubes.filter((c) => c.id_clube !== id));
       } catch (err) {
         alert("Erro ao eliminar o clube.");
       }
@@ -58,54 +57,69 @@ const ClubsPage: React.FC = () => {
   return (
     <>
       <Container sx={{ py: 8 }} maxWidth="lg">
-        
-        <Stack 
-          direction="row" 
-          justifyContent="space-between" 
-          alignItems="center" 
-          sx={{ mb: 6 }} 
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ mb: 6 }}
         >
           <Typography variant="h3" component="h1" fontWeight="bold">
             Clubes de Futebol
           </Typography>
-          
-          <Button 
-            variant="contained" 
-            color="primary" 
+
+          <Button
+            variant="contained"
+            color="primary"
             startIcon={<AddIcon />}
             size="large"
-            // Sugestão: Usa o navigate aqui também em vez de window.location
-            onClick={() => navigate('/create-club')} 
+            onClick={() => navigate("/create-club")}
           >
             Novo Clube
           </Button>
         </Stack>
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <CircularProgress />
           </Box>
         ) : error ? (
-          <Typography color="error" align="center">{error}</Typography>
+          <Typography color="error" align="center">
+            {error}
+          </Typography>
         ) : (
           <Grid container spacing={4}>
             {clubes.map((clube) => (
               <Grid key={clube.id_clube} size={{ xs: 12, sm: 6, md: 4 }}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3 }}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: 3,
+                  }}
+                >
                   <CardMedia
                     component="img"
-                    sx={{ 
-                      height: 200, 
-                      objectFit: 'contain', 
-                      p: 2, 
-                      backgroundColor: '#f5f5f5' 
+                    sx={{
+                      height: 200,
+                      objectFit: "contain",
+                      p: 2,
+                      backgroundColor: "#f5f5f5",
                     }}
                     image={`${IMAGES_URL}${clube.img}`}
                     alt={clube.nomeClube}
-                    onError={(e: any) => { e.target.src = 'https://via.placeholder.com/200?text=Sem+Foto'; }}
+                    onError={(e: any) => {
+                      e.target.src =
+                        "https://via.placeholder.com/200?text=Sem+Foto";
+                    }}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2" fontWeight="bold">
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      fontWeight="bold"
+                    >
                       {clube.nomeClube}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -118,18 +132,22 @@ const ClubsPage: React.FC = () => {
                       <strong>Ano Fundação:</strong> {clube.anoFundacao}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        <strong>Treinador:</strong> {clube.treinador}
+                      <strong>Treinador:</strong> {clube.treinador}
                     </Typography>
                   </CardContent>
-                  <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
-                    {/* Agora o navigate já funciona aqui */}
-                    <Button variant="outlined" onClick={() => navigate(`/edit-clube/${clube.id_clube}`)}>
-                        Editar
+                  <CardActions
+                    sx={{ justifyContent: "space-between", px: 2, pb: 2 }}
+                  >
+                    <Button
+                      variant="outlined"
+                      onClick={() => navigate(`/edit-clube/${clube.id_clube}`)}
+                    >
+                      Editar
                     </Button>
-                    <Button 
-                      size="small" 
-                      variant="contained" 
-                      color="error" 
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="error"
                       onClick={() => handleDelete(clube.id_clube)}
                     >
                       Eliminar

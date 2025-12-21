@@ -1,22 +1,21 @@
-module.exports = app => {
-    const clubes = require("../controllers/clubes.controller.js");
-    const multer = require("multer");
-    
+module.exports = (app) => {
+  const clubes = require("../controllers/clubes.controller.js");
+  const multer = require("multer");
 
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, './uploads')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.originalname)
-        }
-    })
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "./uploads");
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
+    },
+  });
 
-    const upload = multer({ storage: storage })
+  const upload = multer({ storage: storage });
 
-    let router = require("express").Router();
+  let router = require("express").Router();
 
-/**
+  /**
    * @swagger
    * /clubes:
    *   get:
@@ -26,10 +25,9 @@ module.exports = app => {
    *       200:
    *         description: Lista dos Clubes
    */
-    router.get("/", clubes.getAll);
+  router.get("/", clubes.getAll);
 
-
-    /**
+  /**
    * @swagger
    * /clubes/{id_clube}:
    *   get:
@@ -44,9 +42,9 @@ module.exports = app => {
    *       200:
    *         description: Destalhes do clube
    */
-    router.get("/:id_clube", clubes.getById);
+  router.get("/:id_clube", clubes.getById);
 
-   /**
+  /**
    * @swagger
    * /clubes/:
    *   post:
@@ -67,7 +65,7 @@ module.exports = app => {
    *               anoFundacao:
    *                 type: integer
    *                 description: Ano de Fundação do Clube
-   *                 example: 
+   *                 example:
    *               cidade:
    *                 type: string
    *                 description: Cidade do Clube
@@ -85,7 +83,7 @@ module.exports = app => {
    *                 format: binary
    *                 description: Ficheiro da imagem
    *                 example: ""
-   * 
+   *
    *     responses:
    *       '200':
    *         description: Clube criado com sucesso
@@ -122,9 +120,9 @@ module.exports = app => {
    *                   type: string
    *                   example: "logoClube.png"
    */
-    router.post("/", upload.single('img'), clubes.insert);
-    
-   /**
+  router.post("/", upload.single("img"), clubes.insert);
+
+  /**
    * @swagger
    * /clubes/{id_clube}:
    *   patch:
@@ -203,10 +201,9 @@ module.exports = app => {
    *                   description: nome do ficheiro da imagem
    *                   example: "logoBenfica.png"
    */
-    router.patch("/:id_clube", upload.single('img'), clubes.updateClube);
+  router.patch("/:id_clube", upload.single("img"), clubes.updateClube);
 
-
-   /**
+  /**
    * @swagger
    * /clubes/{id_clube}:
    *   delete:
@@ -221,10 +218,7 @@ module.exports = app => {
    *       200:
    *         description: Clube apagado
    */
-    router.delete("/:id_clube", clubes.delete);  
+  router.delete("/:id_clube", clubes.delete);
 
-    
-    app.use('/clubes', router);
-}
-
-
+  app.use("/clubes", router);
+};
