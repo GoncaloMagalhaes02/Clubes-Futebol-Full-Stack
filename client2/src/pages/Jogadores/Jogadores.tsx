@@ -11,6 +11,7 @@ function Jogadores() {
 
   const [jogadores, setJogadores] = useState<Jogador[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>();
 
   useEffect(() => {
     getJogadores();
@@ -24,6 +25,7 @@ function Jogadores() {
       setLoading(false);
       console.log(response.data);
     } catch (err) {
+      setError("Não foi possivel listar Jogadores.");
       console.log(err);
     }
   };
