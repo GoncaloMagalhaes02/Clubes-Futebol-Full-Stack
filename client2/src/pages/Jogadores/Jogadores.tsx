@@ -7,10 +7,11 @@ import {
   Button,
   Grid,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   CardActionArea,
+  Box,
+  Divider,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -38,6 +39,17 @@ function Jogadores() {
     } catch (err) {
       setError("Não foi possivel listar Jogadores.");
       console.log(err);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (window.confirm("Tem a certeza que deseja eliminar este clube?")) {
+      try {
+        await JogadorService.delete(id);
+        setJogadores(jogadores.filter((j) => j.id_jogador !== id));
+      } catch (err) {
+        alert("Erro ao eliminar o clube.");
+      }
     }
   };
 
@@ -81,32 +93,84 @@ function Jogadores() {
                   to={`/jogador/${jogador.id_jogador}`}
                 >
                   <CardContent>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="div"
-                      sx={{ color: "primary.main" }}
-                    >
-                      {jogador.nome}
+                    <Box>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        sx={{ color: "primary.main", fontWeight: "bold" }}
+                      >
+                        {jogador.nome}
+                      </Typography>
+                    </Box>
+                    <Divider />
+                    <Typography variant="body2" color="text.secondary" mt={2}>
+                      <strong>Nacionalidade: </strong> {jogador.nacionalidade}
                     </Typography>
+
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>Clube: </strong> {jogador.nomeClube}
+                    </Typography>
+
+                    <Typography variant="body2" color="text.secondary">
+                      <strong>Posição: </strong> {jogador.posicao}
+                    </Typography>
+
                     <Typography variant="body2" color="text.secondary">
                       <strong>Data de Nascimento: </strong>
+
                       {new Date(jogador.dataNascimento).toLocaleDateString(
                         "pt-PT"
                       )}
                     </Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button
-                      component={Link}
-                      to={`/jogador-edit/${jogador.id_jogador}}`}
-                      size="small"
-                    >
-                      Editar
-                    </Button>
-                    <Button size="small">Learn More</Button>
-                  </CardActions>
                 </CardActionArea>
+
+                <CardActions
+                  sx={{
+                    justifyContent: "space-between",
+
+                    px: 1,
+
+                    pb: 2,
+                  }}
+                >
+                  <Button
+                    component={Link}
+                    to={`/jogador-edit/${jogador.id_jogador}}`}
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "primary.main",
+
+                        color: "#fff",
+
+                        borderColor: "primary.main",
+                      },
+                    }}
+                  >
+                    Editar
+                  </Button>
+
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    color="error"
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "#f44336",
+
+                        color: "#fff",
+
+                        borderColor: "#f44336",
+                      },
+                    }}
+                    onClick={() => handleDelete(jogador.id_jogador)}
+                  >
+                    Eliminar
+                  </Button>
+                </CardActions>
               </Card>
             </Grid>
           ))}

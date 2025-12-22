@@ -12,6 +12,7 @@ import {
   CircularProgress,
   Stack,
   CardActionArea,
+  Divider,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
@@ -126,6 +127,7 @@ const ClubsPage: React.FC = () => {
                           "https://via.placeholder.com/200?text=Sem+Foto";
                       }}
                     />
+                    <Divider />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography
                         gutterBottom
@@ -148,34 +150,32 @@ const ClubsPage: React.FC = () => {
                         <strong>Treinador:</strong> {clube.treinador}
                       </Typography>
                     </CardContent>
-                    <CardActions
-                      sx={{ justifyContent: "space-between", px: 2, pb: 2 }}
-                    >
-                      <Button
-                        variant="outlined"
-                        onClick={() =>
-                          navigate(`/edit-clube/${clube.id_clube}`)
-                        }
-                        sx={{
-                          "&:hover": {
-                            backgroundColor: "primary.main",
-                            color: "#fff",
-                            borderColor: "primary.main",
-                          },
-                        }}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(clube.id_clube)}
-                      >
-                        Eliminar
-                      </Button>
-                    </CardActions>
                   </CardActionArea>
+                  <CardActions
+                    sx={{ justifyContent: "space-between", px: 2, pb: 2 }}
+                  >
+                    <Button
+                      variant="outlined"
+                      onClick={() => navigate(`/edit-clube/${clube.id_clube}`)}
+                      sx={{
+                        "&:hover": {
+                          backgroundColor: "primary.main",
+                          color: "#fff",
+                          borderColor: "primary.main",
+                        },
+                      }}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="error"
+                      onClick={() => handleDelete(clube.id_clube)}
+                    >
+                      Eliminar
+                    </Button>
+                  </CardActions>
                 </Card>
               </Grid>
             ))}

@@ -7,6 +7,7 @@ export interface Jogador {
   dataNascimento: string;
   posicao: string;
   num_Camisola: string;
+  nomeClube: string;
   id_clube: number;
 }
 

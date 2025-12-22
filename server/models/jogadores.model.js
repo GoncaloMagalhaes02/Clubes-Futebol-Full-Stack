@@ -22,14 +22,17 @@ Jogador.insert = (newJogador, result) => {
 };
 
 Jogador.listAll = (result) => {
-  sql.query("SELECT * FROM jogadores", (err, res) => {
-    if (err) {
-      console.log("Erro ao ler jogadores: ", err);
-      result(err, null);
-      return;
+  sql.query(
+    "SELECT jogadores.*, clubes.nomeClube FROM jogadores JOIN clubes ON jogadores.id_clube = clubes.id_clube",
+    (err, res) => {
+      if (err) {
+        console.log("Erro ao ler jogadores: ", err);
+        result(err, null);
+        return;
+      }
+      result(null, res);
     }
-    result(null, res);
-  });
+  );
 };
 
 Jogador.findById = (id, result) => {
