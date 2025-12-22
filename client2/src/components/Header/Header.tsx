@@ -17,7 +17,7 @@ import logoImg from "../../assets/ligalogo.png";
 
 const navLinks = [
   { title: "Jogadores", path: "/jogadores" },
-  { title: "Clubes", path: "/clubs" },
+  { title: "Clubes", path: "/clubes" },
   { title: "Sobre", path: "/sobre" },
 ];
 

@@ -11,7 +11,9 @@ import {
   Box,
   CircularProgress,
   Stack,
+  CardActionArea,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 
 import { useNavigate } from "react-router-dom";
@@ -68,11 +70,18 @@ const ClubsPage: React.FC = () => {
           </Typography>
 
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             startIcon={<AddIcon />}
             size="large"
             onClick={() => navigate("/create-club")}
+            sx={{
+              "&:hover": {
+                backgroundColor: "primary.main",
+                color: "#fff",
+                borderColor: "primary.main",
+              },
+            }}
           >
             Novo Clube
           </Button>
@@ -98,61 +107,75 @@ const ClubsPage: React.FC = () => {
                     boxShadow: 3,
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      height: 200,
-                      objectFit: "contain",
-                      p: 2,
-                      backgroundColor: "#f5f5f5",
-                    }}
-                    image={`${IMAGES_URL}${clube.img}`}
-                    alt={clube.nomeClube}
-                    onError={(e: any) => {
-                      e.target.src =
-                        "https://via.placeholder.com/200?text=Sem+Foto";
-                    }}
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                      fontWeight="bold"
-                    >
-                      {clube.nomeClube}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Cidade:</strong> {clube.cidade}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Estádio:</strong> {clube.estadio}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Ano Fundação:</strong> {clube.anoFundacao}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Treinador:</strong> {clube.treinador}
-                    </Typography>
-                  </CardContent>
-                  <CardActions
-                    sx={{ justifyContent: "space-between", px: 2, pb: 2 }}
+                  <CardActionArea
+                    component={Link}
+                    to={`/clube/${clube.id_clube}`}
                   >
-                    <Button
-                      variant="outlined"
-                      onClick={() => navigate(`/edit-clube/${clube.id_clube}`)}
+                    <CardMedia
+                      component="img"
+                      sx={{
+                        height: 200,
+                        objectFit: "contain",
+                        p: 2,
+                        backgroundColor: "#f5f5f5",
+                      }}
+                      image={`${IMAGES_URL}${clube.img}`}
+                      alt={clube.nomeClube}
+                      onError={(e: any) => {
+                        e.target.src =
+                          "https://via.placeholder.com/200?text=Sem+Foto";
+                      }}
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                        fontWeight="bold"
+                      >
+                        {clube.nomeClube}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        <strong>Cidade:</strong> {clube.cidade}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        <strong>Estádio:</strong> {clube.estadio}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        <strong>Ano Fundação:</strong> {clube.anoFundacao}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        <strong>Treinador:</strong> {clube.treinador}
+                      </Typography>
+                    </CardContent>
+                    <CardActions
+                      sx={{ justifyContent: "space-between", px: 2, pb: 2 }}
                     >
-                      Editar
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="error"
-                      onClick={() => handleDelete(clube.id_clube)}
-                    >
-                      Eliminar
-                    </Button>
-                  </CardActions>
+                      <Button
+                        variant="outlined"
+                        onClick={() =>
+                          navigate(`/edit-clube/${clube.id_clube}`)
+                        }
+                        sx={{
+                          "&:hover": {
+                            backgroundColor: "primary.main",
+                            color: "#fff",
+                            borderColor: "primary.main",
+                          },
+                        }}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleDelete(clube.id_clube)}
+                      >
+                        Eliminar
+                      </Button>
+                    </CardActions>
+                  </CardActionArea>
                 </Card>
               </Grid>
             ))}

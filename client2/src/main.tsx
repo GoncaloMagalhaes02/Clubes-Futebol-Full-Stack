@@ -46,9 +46,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<HomePage />} />
-      <Route path="/clubs" element={<ClubsPage />} />
-      <Route path="/create-club" element={<CreateClubPage />} />
-      <Route path="/edit-clube/:id_clube" element={<EditClubPage />} />
+      <Route path="/clubes" element={<ClubsPage />} />
+      <Route path="/clube/:id" element={""} />
+      <Route path="/clube-criar" element={<CreateClubPage />} />
+      <Route path="/clube-editar/:id_clube" element={<EditClubPage />} />
       <Route path="/jogadores" element={<Jogadores />} />
     </Route>
   )
