@@ -9,6 +9,7 @@ export interface Jogador {
   numCamisola: string;
   nomeClube: string;
   id_clube: number;
+  img: string;
 }
 
 const JogadorService = {

@@ -12,14 +12,13 @@ import {
   CardActionArea,
   Box,
   Divider,
+  CircularProgress,
 } from "@mui/material";
+
 import AddIcon from "@mui/icons-material/Add";
 
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import PublicIcon from "@mui/icons-material/Public";
 import GroupIcon from "@mui/icons-material/Group";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-
 import JogadorService, { type Jogador } from "../../service/jogador.service";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,7 +27,7 @@ function Jogadores() {
 
   const [jogadores, setJogadores] = useState<Jogador[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>();
+  const [error, setError] = useState<string>("Nenhum jogador encontrado.");
 
   useEffect(() => {
     getJogadores();
@@ -39,164 +38,213 @@ function Jogadores() {
       setLoading(true);
       const response = await JogadorService.getAll();
       setJogadores(response.data);
-      setLoading(false);
       console.log(response.data);
+      setLoading(false);
     } catch (err) {
-      setError("Não foi possivel listar Jogadores.");
+      setError("Não foi possível carregar os jogadores.");
       console.log(err);
     }
   };
 
   const handleDelete = async (id: number) => {
-    if (window.confirm("Tem a certeza que deseja eliminar este clube?")) {
+    if (window.confirm("Tem a certeza que deseja eliminar este Jogador?")) {
       try {
         await JogadorService.delete(id);
         setJogadores(jogadores.filter((j) => j.id_jogador !== id));
       } catch (err) {
-        alert("Erro ao eliminar o clube.");
+        alert("Erro ao eliminar o jogador.");
       }
     }
   };
 
   return (
     <>
-      <Container sx={{ py: 8 }} maxWidth="lg">
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ mb: 6 }}
-        >
-          <Typography variant="h3" component="h1" fontWeight="bold">
-            Jogadores
-          </Typography>
+      <Container sx={{ py: 9 }} maxWidth="lg">
+        {loading ? (
+          <Box display="flex" justifyContent="center" mt={4}>
+            <CircularProgress />
+          </Box>
+        ) : jogadores.length === 0 ? (
+          <>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ mb: 6 }}
+            >
+              <Typography variant="h3" component="h1" fontWeight="bold">
+                Jogadores
+              </Typography>
 
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<AddIcon />}
-            size="large"
-            onClick={() => navigate("/create-jogador")}
-            sx={{
-              "&:hover": {
-                backgroundColor: "primary.main",
-                color: "#fff",
-                borderColor: "primary.main",
-              },
-            }}
-          >
-            Novo Jogador
-          </Button>
-        </Stack>
-
-        <Grid container spacing={4}>
-          {jogadores.map((jogador) => (
-            <Grid display="flex" flexGrow={1} key={jogador.id_jogador}>
-              <Card
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<AddIcon />}
+                size="large"
+                onClick={() => navigate("/jogador-criar")}
                 sx={{
-                  minWidth: 260,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                    color: "#fff",
+                    borderColor: "primary.main",
+                  },
                 }}
               >
-                <CardActionArea
-                  component={Link}
-                  to={`/jogadores/${jogador.id_jogador}`}
+                Novo Jogador
+              </Button>
+            </Stack>
+            <Box display="flex" justifyContent="center" mt={4}>
+              <Typography color="error">{error}</Typography>
+            </Box>
+          </>
+        ) : (
+          jogadores.length > 0 && (
+            <>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                sx={{ mb: 6 }}
+              >
+                <Typography variant="h3" component="h1" fontWeight="bold">
+                  Jogadores
+                </Typography>
+
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<AddIcon />}
+                  size="large"
+                  onClick={() => navigate("/create-jogador")}
                   sx={{
-                    flexGrow: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
+                    "&:hover": {
+                      backgroundColor: "primary.main",
+                      color: "#fff",
+                      borderColor: "primary.main",
+                    },
                   }}
                 >
-                  <CardContent sx={{ width: "100%" }}>
-                    <Box>
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                        sx={{ color: "primary.main", fontWeight: "bold" }}
+                  Novo Jogador
+                </Button>
+              </Stack>
+
+              <Grid container spacing={4}>
+                {jogadores.map((jogador) => (
+                  <Grid display="flex" flexGrow={1} key={jogador.id_jogador}>
+                    <Card
+                      sx={{
+                        minWidth: 260,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <CardActionArea
+                        component={Link}
+                        to={`/jogadores/${jogador.id_jogador}`}
+                        sx={{
+                          flexGrow: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                        }}
                       >
-                        {jogador.nome}
-                      </Typography>
-                    </Box>
+                        <CardContent sx={{ width: "100%" }}>
+                          <Box>
+                            <Typography
+                              gutterBottom
+                              variant="h5"
+                              component="div"
+                              sx={{ color: "primary.main", fontWeight: "bold" }}
+                            >
+                              {jogador.nome}
+                            </Typography>
+                          </Box>
 
-                    <Divider />
+                          <Divider />
 
-                    <Stack mt={2} gap={0.2}>
-                      {/* Nome do Clube  */}
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        gap={1}
-                        color="text.secondary"
+                          <Stack mt={2} gap={0.2}>
+                            {/* Nome do Clube  */}
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              gap={1}
+                              color="text.secondary"
+                            >
+                              <GroupIcon fontSize="small" />
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                {jogador.nomeClube}
+                              </Typography>
+                            </Box>
+
+                            {/* Posicao */}
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              gap={1}
+                              color="text.secondary"
+                            >
+                              <SportsSoccerIcon fontSize="small" />
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                              >
+                                {jogador.posicao}
+                              </Typography>
+                            </Box>
+                          </Stack>
+                        </CardContent>
+                      </CardActionArea>
+
+                      <CardActions
+                        sx={{
+                          justifyContent: "space-between",
+                          px: 1,
+                          pb: 2,
+                        }}
                       >
-                        <GroupIcon fontSize="small" />
-                        <Typography variant="body2" color="text.secondary">
-                          {jogador.nomeClube}
-                        </Typography>
-                      </Box>
+                        <Button
+                          component={Link}
+                          to={`/jogador-edit/${jogador.id_jogador}}`}
+                          size="small"
+                          variant="outlined"
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "primary.main",
+                              color: "#fff",
+                              borderColor: "primary.main",
+                            },
+                          }}
+                        >
+                          Editar
+                        </Button>
 
-                      {/* Posicao */}
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        gap={1}
-                        color="text.secondary"
-                      >
-                        <SportsSoccerIcon fontSize="small" />
-                        <Typography variant="body2" color="text.secondary">
-                          {jogador.posicao}
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  </CardContent>
-                </CardActionArea>
-
-                <CardActions
-                  sx={{
-                    justifyContent: "space-between",
-                    px: 1,
-                    pb: 2,
-                  }}
-                >
-                  <Button
-                    component={Link}
-                    to={`/jogador-edit/${jogador.id_jogador}}`}
-                    size="small"
-                    variant="outlined"
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "primary.main",
-                        color: "#fff",
-                        borderColor: "primary.main",
-                      },
-                    }}
-                  >
-                    Editar
-                  </Button>
-
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="error"
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "#f44336",
-                        color: "#fff",
-                        borderColor: "#f44336",
-                      },
-                    }}
-                    onClick={() => handleDelete(jogador.id_jogador)}
-                  >
-                    Eliminar
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                        <Button
+                          size="small"
+                          variant="outlined"
+                          color="error"
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "#f44336",
+                              color: "#fff",
+                              borderColor: "#f44336",
+                            },
+                          }}
+                          onClick={() => handleDelete(jogador.id_jogador)}
+                        >
+                          Eliminar
+                        </Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </>
+          )
+        )}
       </Container>
     </>
   );
