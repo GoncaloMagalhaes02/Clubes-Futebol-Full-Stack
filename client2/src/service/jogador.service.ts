@@ -6,7 +6,7 @@ export interface Jogador {
   nacionalidade: string;
   dataNascimento: string;
   posicao: string;
-  num_Camisola: string;
+  numCamisola: string;
   nomeClube: string;
   id_clube: number;
 }
@@ -14,7 +14,7 @@ export interface Jogador {
 const JogadorService = {
   getAll: () => api.get<Jogador[]>("/jogadores"),
 
-  getById: (id: number) => api.get<Jogador>(`/jogadores/${id}`),
+  getById: (id: number) => api.get<Jogador[]>(`/jogadores/${id}`),
 
   delete: (id: number) => api.delete(`/jogadores/${id}`),
 };

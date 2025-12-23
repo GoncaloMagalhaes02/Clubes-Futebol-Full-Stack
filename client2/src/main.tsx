@@ -41,6 +41,7 @@ import ClubsPage from "./pages/ClubsPage/ClubsPage.tsx";
 import CreateClubPage from "./pages/ClubsPage/CreateClubPage.tsx";
 import EditClubPage from "./pages/ClubsPage/EditClubPage.tsx";
 import Jogadores from "./pages/Jogadores/Jogadores.tsx";
+import JogadorDetalhe from "./pages/Jogadores/JogadorDetalhe.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +52,7 @@ const router = createBrowserRouter(
       <Route path="/clube-criar" element={<CreateClubPage />} />
       <Route path="/clube-editar/:id_clube" element={<EditClubPage />} />
       <Route path="/jogadores" element={<Jogadores />} />
+      <Route path="/jogadores/:id" element={<JogadorDetalhe />} />
     </Route>
   )
 );

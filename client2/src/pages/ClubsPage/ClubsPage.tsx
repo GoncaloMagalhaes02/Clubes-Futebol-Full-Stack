@@ -75,7 +75,7 @@ const ClubsPage: React.FC = () => {
             color="primary"
             startIcon={<AddIcon />}
             size="large"
-            onClick={() => navigate("/create-club")}
+            onClick={() => navigate("/clube-criar")}
             sx={{
               "&:hover": {
                 backgroundColor: "primary.main",

@@ -49,7 +49,6 @@ Jogador.findById = (id, result) => {
       result(err, null);
       return;
     }
-    console.log("Jogador: ", res);
     result(null, res);
   });
 };

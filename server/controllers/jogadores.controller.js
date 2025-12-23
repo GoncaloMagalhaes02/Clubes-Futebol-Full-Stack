@@ -41,7 +41,7 @@ exports.findById = (req, res) => {
     if (err) {
       res.status(400).json({ message: "Jogador não encontrado!" }, err);
     } else {
-      res.status(200).send({ Jogador: data });
+      res.status(200).send(data);
     }
   });
 };

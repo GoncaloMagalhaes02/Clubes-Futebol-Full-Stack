@@ -15,6 +15,11 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
+import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import PublicIcon from "@mui/icons-material/Public";
+import GroupIcon from "@mui/icons-material/Group";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+
 import JogadorService, { type Jogador } from "../../service/jogador.service";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -86,13 +91,26 @@ function Jogadores() {
 
         <Grid container spacing={4}>
           {jogadores.map((jogador) => (
-            <Grid>
-              <Card sx={{ maxWidth: 345 }}>
+            <Grid display="flex" flexGrow={1} key={jogador.id_jogador}>
+              <Card
+                sx={{
+                  minWidth: 260,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
                 <CardActionArea
                   component={Link}
-                  to={`/jogador/${jogador.id_jogador}`}
+                  to={`/jogadores/${jogador.id_jogador}`}
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                  }}
                 >
-                  <CardContent>
+                  <CardContent sx={{ width: "100%" }}>
                     <Box>
                       <Typography
                         gutterBottom
@@ -103,35 +121,43 @@ function Jogadores() {
                         {jogador.nome}
                       </Typography>
                     </Box>
+
                     <Divider />
-                    <Typography variant="body2" color="text.secondary" mt={2}>
-                      <strong>Nacionalidade: </strong> {jogador.nacionalidade}
-                    </Typography>
 
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Clube: </strong> {jogador.nomeClube}
-                    </Typography>
+                    <Stack mt={2} gap={0.2}>
+                      {/* Nome do Clube  */}
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        gap={1}
+                        color="text.secondary"
+                      >
+                        <GroupIcon fontSize="small" />
+                        <Typography variant="body2" color="text.secondary">
+                          {jogador.nomeClube}
+                        </Typography>
+                      </Box>
 
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Posição: </strong> {jogador.posicao}
-                    </Typography>
-
-                    <Typography variant="body2" color="text.secondary">
-                      <strong>Data de Nascimento: </strong>
-
-                      {new Date(jogador.dataNascimento).toLocaleDateString(
-                        "pt-PT"
-                      )}
-                    </Typography>
+                      {/* Posicao */}
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                        gap={1}
+                        color="text.secondary"
+                      >
+                        <SportsSoccerIcon fontSize="small" />
+                        <Typography variant="body2" color="text.secondary">
+                          {jogador.posicao}
+                        </Typography>
+                      </Box>
+                    </Stack>
                   </CardContent>
                 </CardActionArea>
 
                 <CardActions
                   sx={{
                     justifyContent: "space-between",
-
                     px: 1,
-
                     pb: 2,
                   }}
                 >
@@ -143,9 +169,7 @@ function Jogadores() {
                     sx={{
                       "&:hover": {
                         backgroundColor: "primary.main",
-
                         color: "#fff",
-
                         borderColor: "primary.main",
                       },
                     }}
@@ -160,9 +184,7 @@ function Jogadores() {
                     sx={{
                       "&:hover": {
                         backgroundColor: "#f44336",
-
                         color: "#fff",
-
                         borderColor: "#f44336",
                       },
                     }}
