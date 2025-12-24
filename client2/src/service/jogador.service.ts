@@ -29,6 +29,9 @@ const JogadorService = {
   delete: (id: number) => api.delete(`/jogadores/${id}`),
 
   create: (data: JogadorCreate) => api.post("/jogadores", data),
+
+  update: (id: number, data: JogadorCreate) =>
+    api.put(`/jogadores/${id}`, data),
 };
 
 export default JogadorService;

@@ -10,5 +10,7 @@ module.exports = (app) => {
 
   router.delete("/:id", jogador.delete);
 
+  router.put("/:id", jogador.update);
+
   app.use("/jogadores", router);
 };
