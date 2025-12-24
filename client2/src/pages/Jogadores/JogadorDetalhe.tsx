@@ -178,42 +178,48 @@ function JogadorDetalhe() {
                   </Typography>
                   <Divider />
                 </Box>
-                <Box
-                  bgcolor="grey.200"
-                  p={2}
-                  mx={6}
-                  borderRadius={2}
-                  display={"flex"}
-                  alignItems="center"
-                >
-                  <Box>
-                    <Box
-                      component="img"
-                      width="80px"
-                      src={`${IMAGES_URL}${jogador.img}`}
-                      alt={`Logo do clube ${jogador.nomeClube}`}
-                      onError={(e: any) => {
-                        e.target.src =
-                          "https://via.placeholder.com/200?text=Sem+Foto";
-                      }}
-                      sx={{ objectFit: "cover" }}
-                    />
+                {jogador.id_clube ? (
+                  <Box
+                    bgcolor="grey.200"
+                    p={2}
+                    mx={6}
+                    borderRadius={2}
+                    display={"flex"}
+                    alignItems="center"
+                  >
+                    <Box>
+                      <Box
+                        component="img"
+                        width="80px"
+                        src={`${IMAGES_URL}${jogador.img}`}
+                        alt={`Logo do clube ${jogador.nomeClube}`}
+                        onError={(e: any) => {
+                          e.target.src =
+                            "https://via.placeholder.com/200?text=Sem+Foto";
+                        }}
+                        sx={{ objectFit: "cover" }}
+                      />
+                    </Box>
+                    <Box ml={2}>
+                      <Typography fontWeight="bold" fontSize="1.2rem">
+                        {jogador.nomeClube}
+                      </Typography>
+                      <Typography
+                        color="info"
+                        fontWeight={"bold"}
+                        fontSize={"0.8rem"}
+                        component={Link}
+                        to={`/clube/${jogador.id_clube}`}
+                      >
+                        Ver Detalhes do Clube
+                      </Typography>
+                    </Box>
                   </Box>
-                  <Box ml={2}>
-                    <Typography fontWeight="bold" fontSize="1.2rem">
-                      {jogador.nomeClube}
-                    </Typography>
-                    <Typography
-                      color="info"
-                      fontWeight={"bold"}
-                      fontSize={"0.8rem"}
-                      component={Link}
-                      to={`/clube/${jogador.id_clube}`}
-                    >
-                      Ver Detalhes do Clube
-                    </Typography>
-                  </Box>
-                </Box>
+                ) : (
+                  <Typography px={6} color="text.secondary">
+                    Jogador sem clube atual.
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </Paper>

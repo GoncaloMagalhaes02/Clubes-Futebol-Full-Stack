@@ -60,74 +60,45 @@ function Jogadores() {
   return (
     <>
       <Container sx={{ py: 9 }} maxWidth="lg">
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ mb: 6 }}
+        >
+          <Typography variant="h3" component="h1" fontWeight="bold">
+            Jogadores
+          </Typography>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            startIcon={<AddIcon />}
+            size="large"
+            component={Link}
+            to="/jogador-criar"
+            sx={{
+              "&:hover": {
+                backgroundColor: "primary.main",
+                color: "#fff",
+                borderColor: "primary.main",
+              },
+            }}
+          >
+            Novo Jogador
+          </Button>
+        </Stack>
         {loading ? (
           <Box display="flex" justifyContent="center" mt={4}>
             <CircularProgress />
           </Box>
         ) : jogadores.length === 0 ? (
-          <>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              sx={{ mb: 6 }}
-            >
-              <Typography variant="h3" component="h1" fontWeight="bold">
-                Jogadores
-              </Typography>
-
-              <Button
-                variant="outlined"
-                color="primary"
-                startIcon={<AddIcon />}
-                size="large"
-                onClick={() => navigate("/jogador-criar")}
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "primary.main",
-                    color: "#fff",
-                    borderColor: "primary.main",
-                  },
-                }}
-              >
-                Novo Jogador
-              </Button>
-            </Stack>
-            <Box display="flex" justifyContent="center" mt={4}>
-              <Typography color="error">{error}</Typography>
-            </Box>
-          </>
+          <Box display="flex" justifyContent="center" mt={4}>
+            <Typography color="error">{error}</Typography>
+          </Box>
         ) : (
           jogadores.length > 0 && (
             <>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                sx={{ mb: 6 }}
-              >
-                <Typography variant="h3" component="h1" fontWeight="bold">
-                  Jogadores
-                </Typography>
-
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<AddIcon />}
-                  size="large"
-                  onClick={() => navigate("/create-jogador")}
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                      color: "#fff",
-                      borderColor: "primary.main",
-                    },
-                  }}
-                >
-                  Novo Jogador
-                </Button>
-              </Stack>
-
               <Grid container spacing={4}>
                 {jogadores.map((jogador) => (
                   <Grid display="flex" flexGrow={1} key={jogador.id_jogador}>

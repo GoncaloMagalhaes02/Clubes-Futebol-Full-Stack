@@ -53,6 +53,36 @@ Jogador.findById = (id, result) => {
   });
 };
 
+Jogador.updateById = (id, jogador, result) => {
+  sql.query(
+    "UPDATE jogadores SET nome = ?, nacionalidade = ?, dataNascimento = ?, posicao = ?, numCamisola = ?, id_clube = ? WHERE id_jogador = ?",
+    [
+      jogador.nome,
+      jogador.nacionalidade,
+      jogador.dataNascimento,
+      jogador.posicao,
+      jogador.numCamisola,
+      jogador.id_clube,
+      id,
+    ],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        result({ jogador: "not_found" }, null);
+        return;
+      }
+
+      console.log("Jogador atualizado: ", { id: id, ...jogador });
+      result(null, { id: id, ...jogador });
+    }
+  );
+};
+
 Jogador.delete = (id, result) => {
   sql.query(`DELETE FROM jogadores WHERE id_jogador = ? `, [id], (err, res) => {
     if (err) {

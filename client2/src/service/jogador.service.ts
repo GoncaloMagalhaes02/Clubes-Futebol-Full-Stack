@@ -12,12 +12,23 @@ export interface Jogador {
   img: string;
 }
 
+interface JogadorCreate {
+  nome: string;
+  nacionalidade: string;
+  dataNascimento: string;
+  posicao: string;
+  numCamisola: number;
+  id_clube: number;
+}
+
 const JogadorService = {
   getAll: () => api.get<Jogador[]>("/jogadores"),
 
   getById: (id: number) => api.get<Jogador[]>(`/jogadores/${id}`),
 
   delete: (id: number) => api.delete(`/jogadores/${id}`),
+
+  create: (data: JogadorCreate) => api.post("/jogadores", data),
 };
 
 export default JogadorService;

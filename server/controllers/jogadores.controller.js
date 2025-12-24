@@ -46,6 +46,26 @@ exports.findById = (req, res) => {
   });
 };
 
+exports.update = (req, res) => {
+  if (!req.body) {
+    res.status(400).send({ message: "O conteúdo não pode ser vazio!" });
+  }
+
+  const id = req.params.id;
+  const jogador = new Jogador({
+    ...req.body,
+  });
+  Jogador.updateById(id, jogador, (err, data) => {
+    if (err) {
+      res
+        .status(500)
+        .json({ message: "Não foi possivel atualizar o jogador." });
+    } else {
+      res.status(200).json({ message: "Jogador atualizado com sucesso!" });
+    }
+  });
+};
+
 exports.delete = (req, res) => {
   const id = req.params.id;
 
