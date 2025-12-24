@@ -156,7 +156,9 @@ const ClubsPage: React.FC = () => {
                   >
                     <Button
                       variant="outlined"
-                      onClick={() => navigate(`/edit-clube/${clube.id_clube}`)}
+                      onClick={() =>
+                        navigate(`/clube-editar/${clube.id_clube}`)
+                      }
                       sx={{
                         "&:hover": {
                           backgroundColor: "primary.main",

@@ -105,7 +105,7 @@ function JogadorDetalhe() {
                       color: "primary.main",
                     }}
                     component={Link}
-                    to={`/jogadores-editar/${jogador.id_jogador}`}
+                    to={`/jogador-editar/${jogador.id_jogador}`}
                   >
                     Editar
                   </Button>

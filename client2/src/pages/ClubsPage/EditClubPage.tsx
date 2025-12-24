@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { 
-  Container, Typography, TextField, Button, Box, Paper, 
-  Stack, IconButton, Snackbar, Alert, CircularProgress 
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Paper,
+  Stack,
+  IconButton,
+  Snackbar,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -19,7 +28,7 @@ const EditClubPage: React.FC = () => {
     anoFundacao: "",
     cidade: "",
     estadio: "",
-    treinador: ""
+    treinador: "",
   });
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -39,7 +48,7 @@ const EditClubPage: React.FC = () => {
             anoFundacao: clube.anoFundacao.toString(),
             cidade: clube.cidade,
             estadio: clube.estadio,
-            treinador: clube.treinador
+            treinador: clube.treinador,
           });
         }
       } catch (error) {
@@ -74,7 +83,7 @@ const EditClubPage: React.FC = () => {
     data.append("cidade", formData.cidade);
     data.append("estadio", formData.estadio);
     data.append("treinador", formData.treinador);
-    
+
     if (selectedFile) {
       data.append("img", selectedFile);
     }
@@ -85,7 +94,7 @@ const EditClubPage: React.FC = () => {
       setSnackbarMsg("Clube atualizado com sucesso!");
       setOpenSnackbar(true);
 
-      setTimeout(() => navigate("/clubs"), 2000);
+      setTimeout(() => navigate("/clubes"), 2000);
     } catch (error) {
       setSeverity("error");
       setSnackbarMsg("Erro ao atualizar o clube.");
@@ -93,32 +102,96 @@ const EditClubPage: React.FC = () => {
     }
   };
 
-  if (loading) return <Box sx={{ display: 'flex', justifyContent: 'center', mt: 10 }}><CircularProgress /></Box>;
+  if (loading)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
+        <CircularProgress />
+      </Box>
+    );
 
   return (
     <>
       <Container maxWidth="sm" sx={{ py: 8 }}>
         <Paper sx={{ p: 4, borderRadius: 3, boxShadow: 3 }}>
           <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
-            <IconButton onClick={() => navigate(-1)}><ArrowBackIcon /></IconButton>
-            <Typography variant="h4" fontWeight="bold">Editar Clube</Typography>
+            <IconButton onClick={() => navigate(-1)}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h4" fontWeight="bold">
+              Editar Clube
+            </Typography>
           </Stack>
 
           <form onSubmit={handleSubmit}>
             <Stack spacing={3}>
-              <TextField label="Nome do Clube" name="nomeClube" fullWidth required value={formData.nomeClube} onChange={handleChange} />
-              <TextField label="Ano de Fundação" name="anoFundacao" type="number" fullWidth required value={formData.anoFundacao} onChange={handleChange} />
-              <TextField label="Cidade" name="cidade" fullWidth required value={formData.cidade} onChange={handleChange} />
-              <TextField label="Estádio" name="estadio" fullWidth required value={formData.estadio} onChange={handleChange} />
-              <TextField label="Treinador" name="treinador" fullWidth required value={formData.treinador} onChange={handleChange} />
+              <TextField
+                label="Nome do Clube"
+                name="nomeClube"
+                fullWidth
+                required
+                value={formData.nomeClube}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Ano de Fundação"
+                name="anoFundacao"
+                type="number"
+                fullWidth
+                required
+                value={formData.anoFundacao}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Cidade"
+                name="cidade"
+                fullWidth
+                required
+                value={formData.cidade}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Estádio"
+                name="estadio"
+                fullWidth
+                required
+                value={formData.estadio}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Treinador"
+                name="treinador"
+                fullWidth
+                required
+                value={formData.treinador}
+                onChange={handleChange}
+              />
 
-              <Button component="label" variant="outlined" startIcon={<CloudUploadIcon />} sx={{ py: 1.5 }}>
-                {selectedFile ? selectedFile.name : "Substituir Logo (Opcional)"}
-                <input type="file" hidden accept="image/*" onChange={handleFileChange} />
+              <Button
+                component="label"
+                variant="outlined"
+                startIcon={<CloudUploadIcon />}
+                sx={{ py: 1.5 }}
+              >
+                {selectedFile
+                  ? selectedFile.name
+                  : "Substituir Logo (Opcional)"}
+                <input
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
               </Button>
 
               <Box sx={{ pt: 2 }}>
-                <Button type="submit" variant="contained" color="warning" fullWidth size="large" sx={{ py: 1.5, fontWeight: "bold" }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="warning"
+                  fullWidth
+                  size="large"
+                  sx={{ py: 1.5, fontWeight: "bold" }}
+                >
                   Guardar Alterações
                 </Button>
               </Box>
@@ -127,8 +200,18 @@ const EditClubPage: React.FC = () => {
         </Paper>
       </Container>
 
-      <Snackbar open={openSnackbar} autoHideDuration={4000} onClose={() => setOpenSnackbar(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-        <Alert onClose={() => setOpenSnackbar(false)} severity={severity} variant="filled" sx={{ width: '100%' }}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={4000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={severity}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
           {snackbarMsg}
         </Alert>
       </Snackbar>

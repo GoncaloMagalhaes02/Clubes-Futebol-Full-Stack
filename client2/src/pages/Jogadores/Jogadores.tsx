@@ -179,7 +179,7 @@ function Jogadores() {
                       >
                         <Button
                           component={Link}
-                          to={`/jogador-edit/${jogador.id_jogador}}`}
+                          to={`/jogador-editar/${jogador.id_jogador}}`}
                           size="small"
                           variant="outlined"
                           sx={{

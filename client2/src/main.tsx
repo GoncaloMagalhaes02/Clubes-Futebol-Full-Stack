@@ -56,7 +56,7 @@ const router = createBrowserRouter(
       <Route path="/jogadores" element={<Jogadores />} />
       <Route path="/jogador-criar" element={<CreateJogador />} />
       <Route path="/jogadores/:id" element={<JogadorDetalhe />} />
-      <Route path="/jogador-edit/:id" element={<EditJogador />} />
+      <Route path="/jogador-editar/:id" element={<EditJogador />} />
     </Route>
   )
 );
