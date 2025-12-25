@@ -14,7 +14,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // useParams é vital aqui
+import { useNavigate, useParams } from "react-router-dom";
 import ClubeService, { type Clube } from "../../service/clube.service";
 import JogadorService from "../../service/jogador.service";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -46,26 +46,33 @@ function EditJogador() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        setLoading(true);
+        // 1. Carregar lista de Clubes
         const clubeRes = await ClubeService.getAll();
         setClubes(clubeRes.data);
 
+        // 2. Carregar dados do Jogador atual
         if (id) {
           const jogRes = await JogadorService.getById(parseInt(id));
 
+          // A tua API retorna um array, pegamos o primeiro item
           if (jogRes.data && jogRes.data.length > 0) {
             const jogador = jogRes.data[0];
 
+            // Formatar data (YYYY-MM-DD) para o input funcionar
             const dataFormatada = jogador.dataNascimento
               ? new Date(jogador.dataNascimento).toISOString().split("T")[0]
               : "";
 
             setFormData({
-              nome: jogador.nome,
-              nacionalidade: jogador.nacionalidade,
-              numCamisola: jogador.numCamisola.toString(),
+              nome: jogador.nome || "",
+              nacionalidade: jogador.nacionalidade || "",
+              numCamisola: jogador.numCamisola
+                ? jogador.numCamisola.toString()
+                : "",
               dataNascimento: dataFormatada,
-              posicao: jogador.posicao,
-              id_clube: jogador.id_clube,
+              posicao: jogador.posicao || "",
+              id_clube: jogador.id_clube || null, // Garante que carrega o ID do clube
             });
           }
         }
@@ -89,6 +96,7 @@ function EditJogador() {
   };
 
   const handleSubmit = async () => {
+    // Validação
     if (!formData.nome || !formData.id_clube || !formData.numCamisola || !id) {
       setFeedback({
         open: true,
@@ -99,11 +107,16 @@ function EditJogador() {
     }
 
     try {
+      // Preparar Payload: Garantir que números são números
       const payload = {
         ...formData,
+        id_jogador: parseInt(id), // Útil enviar o ID também
         numCamisola: parseInt(formData.numCamisola),
-        id_clube: formData.id_clube as number,
+        id_clube: Number(formData.id_clube), // Força conversão para número
       };
+
+      console.log("Enviando:", payload); // Debug
+
       await JogadorService.update(parseInt(id), payload);
 
       setFeedback({
@@ -112,6 +125,7 @@ function EditJogador() {
         severity: "success",
       });
 
+      // Redireciona após 1.5s
       setTimeout(() => navigate("/jogadores"), 1500);
     } catch (error) {
       console.error(error);
@@ -174,6 +188,7 @@ function EditJogador() {
               name="dataNascimento"
               value={formData.dataNascimento}
               onChange={handleChange}
+              InputLabelProps={{ shrink: true }} // Importante para a data
             />
 
             {/* SELECT DA POSIÇÃO */}
@@ -195,7 +210,7 @@ function EditJogador() {
             <Autocomplete
               disablePortal
               options={clubes}
-              getOptionLabel={(option) => option.nomeClube}
+              getOptionLabel={(option) => option.nomeClube || ""}
               value={
                 clubes.find((c) => c.id_clube === formData.id_clube) || null
               }
@@ -205,7 +220,6 @@ function EditJogador() {
                   id_clube: newValue ? newValue.id_clube : null,
                 });
               }}
-              // Para evitar avisos na consola
               isOptionEqualToValue={(option, value) =>
                 option.id_clube === value.id_clube
               }

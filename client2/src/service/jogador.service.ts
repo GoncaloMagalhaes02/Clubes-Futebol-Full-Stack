@@ -31,7 +31,7 @@ const JogadorService = {
   create: (data: JogadorCreate) => api.post("/jogadores", data),
 
   update: (id: number, data: JogadorCreate) =>
-    api.put(`/jogadores/${id}`, data),
+    api.patch(`/jogadores/${id}`, data),
 };
 
 export default JogadorService;

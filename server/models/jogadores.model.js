@@ -53,22 +53,35 @@ Jogador.findById = (id, result) => {
   });
 };
 
-Jogador.updateById = (id, jogador, result) => {
+Jogador.updateById = (id, partialJogadorData, result) => {
+  const fieldsToUpdate = {};
+  const validFields = [
+    "nome",
+    "nacionalidade",
+    "dataNascimento",
+    "posicao",
+    "numCamisola",
+    "id_clube",
+  ];
+
+  for (const key of validFields) {
+    if (partialJogadorData[key] !== undefined) {
+      fieldsToUpdate[key] = partialJogadorData[key];
+    }
+  }
+
+  if (Object.keys(fieldsToUpdate).length === 0) {
+    console.log("Nenhum campo fornecido para atualização.");
+    result({ clube: "no_changes" }, null);
+    return;
+  }
   sql.query(
-    "UPDATE jogadores SET nome = ?, nacionalidade = ?, dataNascimento = ?, posicao = ?, numCamisola = ?, id_clube = ? WHERE id_jogador = ?",
-    [
-      jogador.nome,
-      jogador.nacionalidade,
-      jogador.dataNascimento,
-      jogador.posicao,
-      jogador.numCamisola,
-      jogador.id_clube,
-      id,
-    ],
+    "UPDATE jogadores SET ? WHERE id_jogador = ?",
+    [fieldsToUpdate, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
         return;
       }
 
@@ -76,9 +89,11 @@ Jogador.updateById = (id, jogador, result) => {
         result({ jogador: "not_found" }, null);
         return;
       }
-
-      console.log("Jogador atualizado: ", { id: id, ...jogador });
-      result(null, { id: id, ...jogador });
+      console.log("Jogador atualizado: ", {
+        id_jogador: id,
+        ...fieldsToUpdate,
+      });
+      result(null, { id_jogador: id, ...fieldsToUpdate });
     }
   );
 };

@@ -47,21 +47,37 @@ exports.findById = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  if (!req.body) {
-    res.status(400).send({ message: "O conteúdo não pode ser vazio!" });
+  if (!req.body || Object.keys(req.body).length === 0) {
+    res.status(400).send({
+      message: "O conteúdo do jogador não pode estar vazio!",
+    });
+    return;
   }
 
-  const id = req.params.id;
-  const jogador = new Jogador({
-    ...req.body,
-  });
-  Jogador.updateById(id, jogador, (err, data) => {
+  if (req.body.dataNascimento > new Date().getFullYear()) {
+    return res.status(400).send({
+      message: "O ano de nascimento não pode ser maior que o ano atual.",
+    });
+  }
+
+  Jogador.updateById(req.params.id_jogador, req.body, (err, data) => {
     if (err) {
-      res
-        .status(500)
-        .json({ message: "Não foi possivel atualizar o jogador." });
+      if (err.jogador === "not_found") {
+        res.status(404).send({
+          message: `Não foi encontrado nenhum jogador com o id ${req.params.id_jogador}.`,
+        });
+      } else if (err.jogador === "no_changes") {
+        res.status(400).send({
+          message: "Nenhum dado válido foi enviado para atualização.",
+        });
+      } else {
+        res.status(500).send({
+          message:
+            "Erro ao atualizar o jogador com o id " + req.params.id_jogador,
+        });
+      }
     } else {
-      res.status(200).json({ message: "Jogador atualizado com sucesso!" });
+      res.send(data);
     }
   });
 };
