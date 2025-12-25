@@ -61,7 +61,7 @@ module.exports = (app) => {
    *               posicao:
    *                 type: string
    *                 description: Posição do Jogador
-   *                 example: "Atacante"
+   *                 example: "Atacante || Médio || Defesa || Guarda-Redes"
    *               numCamisola:
    *                 type: integer
    *                 description: Número da Camisola do Jogador

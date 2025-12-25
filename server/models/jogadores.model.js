@@ -10,15 +10,25 @@ const Jogador = function (jogador) {
 };
 
 Jogador.insert = (newJogador, result) => {
-  sql.query("INSERT INTO jogadores SET ?", newJogador, (err, res) => {
-    if (err) {
-      console.log("error:", err);
-      result(err, null);
-      return;
-    }
-    console.log("Jogador criado: ", { id: res.insertId, ...newJogador });
-    result(null, { id: res.insertId, ...newJogador });
-  });
+  if (
+    newJogador.posicao === "Guarda-Redes" ||
+    newJogador.posicao === "Defesa" ||
+    newJogador.posicao === "Médio" ||
+    newJogador.posicao === "Avançado"
+  ) {
+    sql.query("INSERT INTO jogadores SET ?", newJogador, (err, res) => {
+      if (err) {
+        console.log("error:", err);
+        result(err, null);
+        return;
+      }
+      console.log("Jogador criado: ", { id: res.insertId, ...newJogador });
+      result(null, { id: res.insertId, ...newJogador });
+    });
+  } else {
+    console.log("Posição inválida para o jogador:", newJogador.posicao);
+    result({ message: "Posição inválida para o jogador." }, null);
+  }
 };
 
 Jogador.listAll = (result) => {
