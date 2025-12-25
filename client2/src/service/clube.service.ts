@@ -16,7 +16,7 @@ const ClubeService = {
   getById: (id: number) => api.get<Clube>(`/clubes/${id}`),
 
   insert: (formData: FormData) =>
-    api.post("/", formData, {
+    api.post("/clubes", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     }),
 

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { 
-  Container, 
-  Typography, 
-  TextField, 
-  Button, 
-  Box, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Paper,
   Stack,
   IconButton,
   Snackbar,
-  Alert
+  Alert,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -18,14 +18,14 @@ import ClubeService from "../../service/clube.service";
 
 const CreateClubPage: React.FC = () => {
   const navigate = useNavigate();
-  
+
   // Estado para os campos de texto
   const [formData, setFormData] = useState({
     nomeClube: "",
     anoFundacao: "",
     cidade: "",
     estadio: "",
-    treinador: ""
+    treinador: "",
   });
 
   // Estado para o ficheiro de imagem
@@ -60,24 +60,21 @@ const CreateClubPage: React.FC = () => {
     data.append("cidade", formData.cidade);
     data.append("estadio", formData.estadio);
     data.append("treinador", formData.treinador);
-    
+
     if (selectedFile) {
       data.append("img", selectedFile);
     }
 
     try {
       await ClubeService.insert(data);
-      
-      // Configurar alerta de sucesso
+
       setSnackbarMsg("Clube criado com sucesso!");
       setSeverity("success");
       setOpenSnackbar(true);
 
-      // Aguarda 2 segundos para o utilizador ler o alerta e redireciona
       setTimeout(() => {
-        navigate("/clubs"); 
+        navigate("/clubes");
       }, 2000);
-
     } catch (error) {
       console.error(error);
       setSnackbarMsg("Erro ao criar o clube. Verifique os dados.");
@@ -94,7 +91,9 @@ const CreateClubPage: React.FC = () => {
             <IconButton onClick={() => navigate(-1)}>
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h4" fontWeight="bold">Novo Clube</Typography>
+            <Typography variant="h4" fontWeight="bold">
+              Novo Clube
+            </Typography>
           </Stack>
 
           <form onSubmit={handleSubmit}>
@@ -107,7 +106,7 @@ const CreateClubPage: React.FC = () => {
                 value={formData.nomeClube}
                 onChange={handleChange}
               />
-              
+
               <TextField
                 label="Ano de Fundação"
                 name="anoFundacao"
@@ -162,10 +161,10 @@ const CreateClubPage: React.FC = () => {
               </Button>
 
               <Box sx={{ pt: 2 }}>
-                <Button 
-                  type="submit" 
-                  variant="contained" 
-                  fullWidth 
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
                   size="large"
                   sx={{ py: 1.5, fontWeight: "bold" }}
                 >
@@ -178,17 +177,17 @@ const CreateClubPage: React.FC = () => {
       </Container>
 
       {/* COMPONENTE DE ALERTA (SNACKBAR) */}
-      <Snackbar 
-        open={openSnackbar} 
-        autoHideDuration={4000} 
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={4000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert 
-          onClose={handleCloseSnackbar} 
-          severity={severity} 
-          variant="filled" 
-          sx={{ width: '100%' }}
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={severity}
+          variant="filled"
+          sx={{ width: "100%" }}
         >
           {snackbarMsg}
         </Alert>
