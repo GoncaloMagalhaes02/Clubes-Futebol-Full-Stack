@@ -44,13 +44,14 @@ import Jogadores from "./pages/Jogadores/Jogadores.tsx";
 import JogadorDetalhe from "./pages/Jogadores/JogadorDetalhe.tsx";
 import CreateJogador from "./pages/Jogadores/CreateJogador.tsx";
 import EditJogador from "./pages/Jogadores/EditJogador.tsx";
+import ClubeDetails from "./pages/ClubsPage/ClubeDetails.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<HomePage />} />
       <Route path="/clubes" element={<ClubsPage />} />
-      <Route path="/clube/:id" element={""} />
+      <Route path="/clube/:id_clube" element={<ClubeDetails />} />
       <Route path="/clube-criar" element={<CreateClubPage />} />
       <Route path="/clube-editar/:id_clube" element={<EditClubPage />} />
       <Route path="/jogadores" element={<Jogadores />} />
