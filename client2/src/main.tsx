@@ -45,6 +45,7 @@ import JogadorDetalhe from "./pages/Jogadores/JogadorDetalhe.tsx";
 import CreateJogador from "./pages/Jogadores/CreateJogador.tsx";
 import EditJogador from "./pages/Jogadores/EditJogador.tsx";
 import ClubeDetails from "./pages/ClubsPage/ClubeDetails.tsx";
+import SobrePage from "./pages/Sobre/sobre.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,6 +59,7 @@ const router = createBrowserRouter(
       <Route path="/jogador-criar" element={<CreateJogador />} />
       <Route path="/jogadores/:id" element={<JogadorDetalhe />} />
       <Route path="/jogador-editar/:id" element={<EditJogador />} />
+      <Route path="/sobre" element={<SobrePage />} />
     </Route>
   )
 );
