@@ -82,7 +82,7 @@ function ClubeDetails() {
                                     <Button variant="contained" color="inherit" sx={{ color: "primary.main" }} onClick={() => navigate("/clubes")}>
                                         Voltar
                                     </Button>
-                                    <Button variant="contained" color="warning" component={RouterLink} to={`/edit-clube/${clube.id_clube}`}>
+                                    <Button variant="contained" color="warning" component={RouterLink} to={`/clube-editar/${clube.id_clube}`}>
                                         Editar
                                     </Button>
                                 </Stack>

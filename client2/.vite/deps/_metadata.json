@@ -1,46 +1,109 @@
 {
-  "hash": "c3b32a4d",
-  "configHash": "389958c7",
-  "lockfileHash": "1f58e974",
-  "browserHash": "348b0179",
+  "hash": "73336c19",
+  "configHash": "54fc28eb",
+  "lockfileHash": "07df9575",
+  "browserHash": "d36e2c63",
   "optimized": {
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "68245f8e",
+      "fileHash": "134efe7d",
       "needsInterop": true
     },
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "b8c35db4",
+      "fileHash": "c2953d79",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "1f7000d6",
+      "fileHash": "2a1fca56",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.mjs",
       "file": "react-router-dom.js",
-      "fileHash": "2283c348",
+      "fileHash": "cb9b5e26",
       "needsInterop": false
     },
     "@mui/material": {
       "src": "../../node_modules/@mui/material/esm/index.js",
       "file": "@mui_material.js",
-      "fileHash": "a9e4ac5e",
+      "fileHash": "f325eabc",
+      "needsInterop": false
+    },
+    "@mui/icons-material/ArrowBack": {
+      "src": "../../node_modules/@mui/icons-material/esm/ArrowBack.js",
+      "file": "@mui_icons-material_ArrowBack.js",
+      "fileHash": "5d529c05",
+      "needsInterop": false
+    },
+    "@mui/icons-material/CloudUpload": {
+      "src": "../../node_modules/@mui/icons-material/esm/CloudUpload.js",
+      "file": "@mui_icons-material_CloudUpload.js",
+      "fileHash": "d78fcc9c",
+      "needsInterop": false
+    },
+    "@mui/icons-material/Add": {
+      "src": "../../node_modules/@mui/icons-material/esm/Add.js",
+      "file": "@mui_icons-material_Add.js",
+      "fileHash": "3d86fa64",
+      "needsInterop": false
+    },
+    "@mui/icons-material/SportsSoccer": {
+      "src": "../../node_modules/@mui/icons-material/esm/SportsSoccer.js",
+      "file": "@mui_icons-material_SportsSoccer.js",
+      "fileHash": "991e9bc7",
+      "needsInterop": false
+    },
+    "@mui/icons-material/Group": {
+      "src": "../../node_modules/@mui/icons-material/esm/Group.js",
+      "file": "@mui_icons-material_Group.js",
+      "fileHash": "23579b4b",
+      "needsInterop": false
+    },
+    "@mui/icons-material/Menu": {
+      "src": "../../node_modules/@mui/icons-material/esm/Menu.js",
+      "file": "@mui_icons-material_Menu.js",
+      "fileHash": "ea2d8c77",
+      "needsInterop": false
+    },
+    "@mui/material/styles": {
+      "src": "../../node_modules/@mui/material/esm/styles/index.js",
+      "file": "@mui_material_styles.js",
+      "fileHash": "f8e199db",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "aecaef41",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-HVBI3IWG": {
-      "file": "chunk-HVBI3IWG.js"
+    "chunk-R3E4LXVO": {
+      "file": "chunk-R3E4LXVO.js"
     },
-    "chunk-BGO6OVE5": {
-      "file": "chunk-BGO6OVE5.js"
+    "chunk-C6WWHQR7": {
+      "file": "chunk-C6WWHQR7.js"
+    },
+    "chunk-LPASY45W": {
+      "file": "chunk-LPASY45W.js"
+    },
+    "chunk-TTNBPDYR": {
+      "file": "chunk-TTNBPDYR.js"
+    },
+    "chunk-UXPIDB46": {
+      "file": "chunk-UXPIDB46.js"
+    },
+    "chunk-P6RTVJOB": {
+      "file": "chunk-P6RTVJOB.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
     }
   }
 }
