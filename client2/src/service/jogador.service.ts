@@ -26,6 +26,8 @@ const JogadorService = {
 
   getById: (id: number) => api.get<Jogador[]>(`/jogadores/${id}`),
 
+  getByClube: (idClube: number) => api.get<Jogador[]>(`/jogadores/clube/${idClube}`),
+
   delete: (id: number) => api.delete(`/jogadores/${id}`),
 
   create: (data: JogadorCreate) => api.post("/jogadores", data),

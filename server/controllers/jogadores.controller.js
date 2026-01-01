@@ -82,6 +82,18 @@ exports.update = (req, res) => {
   });
 };
 
+exports.findByClube = (req, res) => {
+  const id_clube = req.params.id_clube;
+  Jogador.findByClube(id_clube, (err, data) => {
+    if (err) {
+      res.status(500).json({ message: "Erro ao buscar jogadores do clube.", err });
+    } else {
+      res.status(200).send(data);
+    }
+  });
+};
+
+
 exports.delete = (req, res) => {
   const id = req.params.id;
 

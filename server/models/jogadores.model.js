@@ -108,6 +108,16 @@ Jogador.updateById = (id, partialJogadorData, result) => {
   );
 };
 
+Jogador.findByClube = (id_clube, result) => {
+  sql.query("SELECT * FROM jogadores WHERE id_clube = ?", id_clube, (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+
 Jogador.delete = (id, result) => {
   sql.query(`DELETE FROM jogadores WHERE id_jogador = ? `, [id], (err, res) => {
     if (err) {

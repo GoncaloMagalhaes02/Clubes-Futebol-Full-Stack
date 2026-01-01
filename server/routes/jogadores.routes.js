@@ -204,5 +204,45 @@ module.exports = (app) => {
 
   router.patch("/:id_jogador", jogador.update);
 
+/**
+   * @swagger
+   * /jogadores/clube/{id_clube}:
+   *   get:
+   *     summary: Retorna todos os jogadores associados a um clube específico
+   *     tags: [Jogadores]
+   *     parameters:
+   *       - in: path
+   *         name: id_clube
+   *         required: true
+   *         schema:
+   *           type: integer
+   *         description: ID do clube para listar os seus jogadores
+   *     responses:
+   *       200:
+   *         description: Lista de jogadores do clube encontrada com sucesso
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   id_jogador:
+   *                     type: integer
+   *                   nome:
+   *                     type: string
+   *                   posicao:
+   *                     type: string
+   *                   numCamisola:
+   *                     type: integer
+   *       404:
+   *         description: Clube não encontrado ou sem jogadores
+   *       500:
+   *         description: Erro interno do servidor
+   */
+  router.get("/clube/:id_clube", jogador.findByClube);
+
+
+
   app.use("/jogadores", router);
 };
